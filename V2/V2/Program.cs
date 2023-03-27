@@ -33,9 +33,6 @@ class Program
         byte[] A = new byte[length];
         byte[] B = new byte[length];
 
-
-        //bool bit = (A[i] >> k) & 1;
-
         //fill array
         for (int i = 0; i < length; i++)
         {
@@ -43,69 +40,36 @@ class Program
             B[i] = (byte)(int.Parse(array[i]));
         }
 
-        //B = A;
-
         for (int k = 0; k < 8; ++k)
         {
-            //for (int i = 0; i < length; i++)
-            //{
-            //    if(((A[i] >> k) & 1) == 1)
-            //    {
-            //        D[i] = true;
-            //    }
-            //    else if (((A[i] >> k) & 1) == 0)
-            //    {
-            //        D[i] = false;
-            //    }
-            //}
-
-            //foreach (var item in D)
-            //{
-            //    if (item) Console.Write("1, ");
-            //    else Console.Write("0, ");
-            //}
-
-            //sort 
-            int[] C = { 0, 0 };
             //Nastavitev C
+            int[] C = { 0, 0 };
+            //Štetje ponovitev 0 in 1
             for (int i = 0; i < length; i++)
             {
                 C[(A[i] >> k) & 1]++;
             }
             //Seštevanje v C
             C[1] += C[0];
-
-            //int[] B = new int[length];
-
-            //foreach (var item in A)
-            //{
-            //    PrintBinbyte(item);
-            //}
-            //Console.WriteLine("Special" + A[1]);
-            Console.WriteLine();
-
+            //Prepis v B v pravem vrstnem redu
             for (int i = length-1; i >= 0; --i)
             {
                 //PrintBinbyte(A[i]);
                 B[(--C[A[i] >> k & 1])] = A[i];
             }
-
+            //Kopija B v A 
             for (int i = 0; i < length; i++)
             {
                 A[i] = B[i];
-            }
-
-
-            
+            }           
 
         }
         
-            for (int i = 0; i < length; i++)
-            {
-                //A[i] = D[i];
-                Console.Write(A[i] + " ");
-            }
-            Console.WriteLine();
+        //Izpis v konzolo
+        for (int i = 0; i < length; i++)
+        {
+            Console.Write(A[i] + " ");
+        }
 
         //Pisanje v izhodno datoteko
         //using (StreamWriter writer = new StreamWriter("out.txt"))
