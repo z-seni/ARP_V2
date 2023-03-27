@@ -66,21 +66,21 @@ class Program
         }
         
         //Izpis v konzolo
-        for (int i = 0; i < length; i++)
-        {
-            Console.Write(A[i] + " ");
-        }
+        //for (int i = 0; i < length; i++)
+        //{
+        //    Console.Write(A[i] + " ");
+        //}
 
         //Pisanje v izhodno datoteko
-        //using (StreamWriter writer = new StreamWriter("out.txt"))
-        //{
-        //    foreach (var item in B)
-        //    {
-        //        writer.Write(item);
-        //        writer.Write(' ');
-        //    }
-        //}
-        
-       
+        using (StreamWriter writer = new StreamWriter("out.txt"))
+        {
+            foreach (var item in A)
+            {
+                writer.Write(item);
+                writer.Write(' ');
+            }
+        }
+
+
     }
 }
