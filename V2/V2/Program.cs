@@ -6,42 +6,50 @@ class Program
 
     static void Main(string[] args)
     {
-        string input = args[1];
-        string numbers = File.ReadAllText(input);
-        string[] array = numbers.Split(' ');
-        int length = array.Length;
-        int[] A = new int[length];
-
-
-        if (args[0] == "0")
+        string input = "";
+        if (args[0] != null)
         {
-            
-            //Pisanje v izhodno datoteko
-            using (StreamWriter writer = new StreamWriter("out.txt"))
-            {
-                foreach (var item in B)
-                {
-                    writer.Write(item);
-                    writer.Write(' ');
-                }
-            }
-        }
-        else if (args[0] == "1")
-        {
-
-            //Pisanje v izhodno datoteko
-            using (StreamWriter writer = new StreamWriter("out.txt"))
-            {
-                foreach (var item in B)
-                {
-                    writer.Write(item);
-                    writer.Write(' ');
-                }
-            }
+            input = args[0];
         }
         else
         {
             Console.WriteLine("Napačana zastavica");
         }
+
+        string numbers = File.ReadAllText(input);
+        string[] array = numbers.Split(' ');
+        int length = array.Length;
+        int[] A = new int[length];
+
+        //fill array
+        for (int i = 0; i < length; i++)
+        {
+            A[i] = int.Parse(array[i]);
+            Console.Write(array[i] + ", ");
+        }
+
+        int[] D = new int[length];
+
+        for (int k = 0; k < 8; k++)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                D[i] = A[i] & 1;
+            }
+            //sort d
+        }
+
+
+        //Pisanje v izhodno datoteko
+        using (StreamWriter writer = new StreamWriter("out.txt"))
+        {
+            foreach (var item in B)
+            {
+                writer.Write(item);
+                writer.Write(' ');
+            }
+        }
+        
+       
     }
 }
