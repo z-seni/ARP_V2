@@ -3,11 +3,11 @@ using System.Security.Cryptography.X509Certificates;
 
 class Program
 {
-    static void PrintBinChar(char x){
+    static void PrintBinbyte(byte x){
 
         for (int k = 0; k < 8; ++k)
         {
-            Console.Write((x >> 7-k) & 1);
+            Console.Write((x >> k) & 1);
         }
 
         Console.Write(" -> " + (int)x);
@@ -30,69 +30,82 @@ class Program
         string numbers = File.ReadAllText(input);
         string[] array = numbers.Split(' ');
         int length = array.Length;
-        List<char> A = new List<char>();
-        List<char> B = new List<char>();
+        byte[] A = new byte[length];
+        byte[] B = new byte[length];
+
 
         //bool bit = (A[i] >> k) & 1;
 
         //fill array
         for (int i = 0; i < length; i++)
         {
-            A.Add((char)(int.Parse(array[i])));
-            PrintBinChar(A.ElementAt(i));
+            A[i] = (byte)(int.Parse(array[i]));
+            B[i] = (byte)(int.Parse(array[i]));
         }
-        Console.WriteLine();
 
-        B = A;
-        bool[] D = new bool[length];
+        //B = A;
 
-        for (int k = 0; k < 1; k++)
+        for (int k = 0; k < 8; ++k)
         {
-            for (int i = 0; i < length; i++)
-            {
-                if(((A[i] >> k) & 1) == 1)
-                {
-                    D[i] = true;
-                }
-                else if (((A[i] >> k) & 1) == 0)
-                {
-                    D[i] = false;
-                }
-            }
+            //for (int i = 0; i < length; i++)
+            //{
+            //    if(((A[i] >> k) & 1) == 1)
+            //    {
+            //        D[i] = true;
+            //    }
+            //    else if (((A[i] >> k) & 1) == 0)
+            //    {
+            //        D[i] = false;
+            //    }
+            //}
 
-            foreach (var item in D)
-            {
-                if (item) Console.Write("1, ");
-                else Console.Write("0, ");
-            }
+            //foreach (var item in D)
+            //{
+            //    if (item) Console.Write("1, ");
+            //    else Console.Write("0, ");
+            //}
 
             //sort 
             int[] C = { 0, 0 };
             //Nastavitev C
             for (int i = 0; i < length; i++)
             {
-                A[i] = C[(A[i] >> k) & 1]++;
+                C[(A[i] >> k) & 1]++;
             }
             //Seštevanje v C
             C[1] += C[0];
 
             //int[] B = new int[length];
 
-            for (int i = length - 1; i >= 0; i--)
-            {
-                B[--C[A[i] >> k & 1]] = A[i];
-            }
+            //foreach (var item in A)
+            //{
+            //    PrintBinbyte(item);
+            //}
+            //Console.WriteLine("Special" + A[1]);
+            Console.WriteLine();
 
-            A = B;
+            for (int i = length-1; i >= 0; --i)
+            {
+                //PrintBinbyte(A[i]);
+                B[(--C[A[i] >> k & 1])] = A[i];
+            }
 
             for (int i = 0; i < length; i++)
             {
+                A[i] = B[i];
+            }
+
+
+            
+
+        }
+        
+            for (int i = 0; i < length; i++)
+            {
                 //A[i] = D[i];
-                Console.Write(A[i] + ", ");
+                Console.Write(A[i] + " ");
             }
             Console.WriteLine();
-        }
-
 
         //Pisanje v izhodno datoteko
         //using (StreamWriter writer = new StreamWriter("out.txt"))
